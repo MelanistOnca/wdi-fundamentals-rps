@@ -27,9 +27,9 @@ function getPlayerMove(move) {
     // However, if `move` is not specified / is null, your expression should equal `getInput()`.
     var move;
     if (move==null){
-        getInput();
-    }
-    return move;
+        move=getInput();
+    } 
+        return move;
 }
 
 function getComputerMove(move) {
@@ -40,10 +40,10 @@ function getComputerMove(move) {
   /*  if (move==null){
         randomPlay();
     } this may be rendundant based on 'else' below */
-    if (move=='rock'||'paper'||'scissors'){
-        move=move;
+    if (move!=null){
+        return move;
     }   else {
-        randomPlay();
+        move=randomPlay();
     }
 
     return move;
@@ -58,10 +58,13 @@ function getWinner(playerMove,computerMove) {
     //want to use switch/case but not sure if it would work with 2 variables to compare
     if (playerMove==computerMove){
         winner='tie';
+        console.log(winner);
     }   else if ( ((playerMove=='rock')&&(computerMove=='scissors'))||((playerMove=='scissors')&&(computerMove=='paper'))||((playerMove=='paper')&&(computerMove=='rock')) ){
         winner='player';
+        console.log(winner);
     } else {
         winner='computer';
+        console.log(winner);
     }
     return winner;
 }
@@ -72,6 +75,21 @@ function playToFive() {
     var computerWins = 0;
     // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
     /* YOUR CODE HERE */
+    var ties = 0; 
+    while((playerWins<5)&&(computerWins<5)){
+        var winner = getWinner(getPlayerMove(),getComputerMove());
+        if (winner=='player'){
+            playerWins++;
+            //console.log(playerWins); shows current _Wins value for testing
+        } else if(winner=='computer'){
+            computerWins++;
+            //console.log(computerWins); shows current _Wins value for testing
+        } else{
+            ties++;
+            //console.log(ties); shows current ties value for testing
+        }
+    }
+    
+    console.log("The player has won " + playerWins + " times, the computer has won " + computerWins + " times, and there have been " + ties + " ties.")
     return [playerWins, computerWins];
 }
-
